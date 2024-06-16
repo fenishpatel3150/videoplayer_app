@@ -39,6 +39,7 @@ dependencies:
   buttons_tabbar: any
   video_player: any
   chewie: ^1.8.1
+  google_fonts: any
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:videoplayer_app/screen/provider/VideoProvider.dart';
 import 'package:videoplayer_app/screen/view/home/Home_screen.dart';
+import 'package:videoplayer_app/screen/view/splash/SplashScreen.dart';
 
 void main() {
   runApp(
@@ -22,7 +23,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      initialRoute: '/Splash',
+      routes: {
+        '/Splash':(context)=>SplashScreen(),
+        '/home':(context)=>HomeScreen(),
+      },
     );
   }
 }

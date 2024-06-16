@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 Widget Tab_Bar() {
   return ButtonsTabBar(
     unselectedLabelStyle: TextStyle(color: Colors.white),
-    backgroundColor: Colors.deepOrange,
+    backgroundColor: Color(0xffeb1a25),
     unselectedBackgroundColor: Color(0xff1f1f1f),
     labelStyle: TextStyle(
       color: Colors.white,

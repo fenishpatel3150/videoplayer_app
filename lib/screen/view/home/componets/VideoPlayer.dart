@@ -38,7 +38,7 @@ class VideoScreen extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Video_Player(),
+                                    builder: (context) => VideoPlayerScreen(),
                                   ),
 
                                 );

@@ -1,15 +1,18 @@
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Widget appbar() {
   return Row(
     children: [
-      Padding(
-        padding: const EdgeInsets.only(left: 10),
-        child: Icon(
-          Icons.video_camera_back,
-          color: Colors.deepOrange,
-          size: 25,
+      Center(
+        child: Container(
+          height: 50,
+          width: 50,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/image/logo0.1.png')),
+          ),
         ),
       ),
       Padding(
@@ -17,7 +20,7 @@ Widget appbar() {
         child: Text(
           'Daily share',
           style:
-          TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          GoogleFonts.ubuntu(color: Color(0xffec1923), fontWeight: FontWeight.w600),
         ),
       ),
       Spacer(),

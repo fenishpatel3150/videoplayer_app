@@ -7,7 +7,7 @@ class VideoProvider extends ChangeNotifier
   int addIndex=0;
   bool playing=true;
   bool likethis=true;
-
+  int index=0;
   void Video (int index)
   {
     addIndex=index;
@@ -18,6 +18,12 @@ class VideoProvider extends ChangeNotifier
   void PlayVideo ()
   {
     playing=!playing;
+    notifyListeners();
+  }
+
+  void videoindex()
+  {
+    index=index;
     notifyListeners();
   }
 

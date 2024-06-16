@@ -8,22 +8,22 @@ import 'package:videoplayer_app/screen/provider/VideoProvider.dart';
 import 'package:videoplayer_app/screen/view/home/componets/ApppBar.dart';
 import '../../../utils/VideoPlayerList.dart';
 
-class Video_Player extends StatefulWidget {
-  const Video_Player({super.key});
+class VideoPlayerScreen extends StatefulWidget {
+  const VideoPlayerScreen({super.key});
 
   @override
-  State<Video_Player> createState() => _Video_PlayerState();
+  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
 }
 
-class _Video_PlayerState extends State<Video_Player> {
+class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
 
   @override
   void initState() {
     super.initState();
+    initializeVideoPlayer();
   }
-
 
   @override
   void dispose() {
@@ -32,11 +32,35 @@ class _Video_PlayerState extends State<Video_Player> {
     super.dispose();
   }
 
+  void initializeVideoPlayer() async {
+    try {
+      final videoPath = VideoPlayerList[videoIndex]['video']; // Adjust according to your JSON structure
+
+      _videoPlayerController = VideoPlayerController.asset(videoPath);
+
+      await _videoPlayerController.initialize();
+
+      _chewieController = ChewieController(
+        videoPlayerController: _videoPlayerController,
+        autoPlay: true,
+        looping: true,
+      );
+
+      if (mounted) {
+        setState(() {
+          // Update UI to reflect initialization
+        });
+      }
+    } catch (e) {
+      print("Error initializing video player: $e");
+      // Handle initialization error, e.g., show error message to user
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final videoProvider = Provider.of<VideoProvider>(context);
 
-    final videoTrue = Provider.of<VideoProvider>(context);
-    final videoFalse = Provider.of<VideoProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -59,22 +83,21 @@ class _Video_PlayerState extends State<Video_Player> {
               height: 200,
               width: double.infinity,
               color: Colors.white,
-              child: ClipRect(),
-            ),
-            IconButton(
-              icon: Icon(videoTrue.playing ? Icons.play_arrow : Icons.pause),
-              onPressed: () {
-                videoFalse.PlayVideo();
-              },
+              child: AspectRatio(
+                aspectRatio: _videoPlayerController.value.aspectRatio,
+                child: _chewieController != null && _chewieController!.videoPlayerController.value.isInitialized
+                    ? Chewie(controller: _chewieController!)
+                    : Center(child: CircularProgressIndicator()),
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(5),
               child: Text(
-                'Night Drive Mashup 2024 | AfterMorning | Chillout |Road Trip Log Drive Mashup',
-                style: TextStyle(
+                VideoPlayerList[videoIndex]['title'],
+                 style: TextStyle(
                     color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15),
               ),
             ),
             Row(
@@ -88,7 +111,8 @@ class _Video_PlayerState extends State<Video_Player> {
                       shape: BoxShape.circle,
                       color: Colors.blueAccent,
                       image: DecorationImage(
-                        image: AssetImage(VideoPlayerList[videoIndex]['logo'],),fit: BoxFit.cover
+                          image: AssetImage(VideoPlayerList[videoIndex]['logo']),
+                          fit: BoxFit.cover
                       ),
                     ),
                   ),
@@ -100,12 +124,8 @@ class _Video_PlayerState extends State<Video_Player> {
                 Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(8),
-                  child: Icon(Icons.favorite_border,color: Colors.white,)
+                  child: Icon(Icons.favorite_border, color: Colors.white),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.all(2),
-                //   child: Text(VideoPlayerList[videoIndex]['like'],style: TextStyle(color: Colors.white),),
-                // ),
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: Icon(
@@ -113,10 +133,6 @@ class _Video_PlayerState extends State<Video_Player> {
                     color: Colors.white,
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.all(2),
-                //   child:  Text(VideoPlayerList[videoIndex]['comment'],style: TextStyle(color: Colors.white),),
-                // ),
                 Padding(
                   padding: const EdgeInsets.only(right: 15, left: 8),
                   child: Icon(
@@ -126,85 +142,84 @@ class _Video_PlayerState extends State<Video_Player> {
                 ),
               ],
             ),
-          ...List.generate(
-                7,
-                    (index) => Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Stack(
-                        children: [
-                          Container(
-                            height: 300,
-                            width: double.infinity,
-                            color: Colors.black,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Container(
-                                    height: 200,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        color: Colors.blueAccent,
-                                        image: DecorationImage(
-                                            image: AssetImage(VideoPlayerList[videoIndex]['banner'][index],),
-                                            fit: BoxFit.cover)),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    height: 50,
-                                    width: double.infinity,
-                                    color: Colors.black,
-                                    child: Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: Container(
-                                            height: 50,
-                                            width: 50,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.blueAccent,
-                                              image: DecorationImage(
-                                                  image: AssetImage(
-                                                      VideoPlayerList[videoIndex]
-                                                      ['logos'][index]),
-                                                  fit: BoxFit.cover),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            VideoPlayerList[videoIndex]
-                                            ['companyName'][index],
-                                            style:
-                                            TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Icon(
-                                            Icons.more_vert,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
+            ...List.generate(
+              7,
+                  (index) => Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Stack(
+                      children: [
+                        Container(
+                          height: 300,
+                          width: double.infinity,
+                          color: Colors.black,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Container(
+                                  height: 200,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.blueAccent,
+                                    image: DecorationImage(
+                                        image: AssetImage(VideoPlayerList[videoIndex]['banner'][index]),
+                                        fit: BoxFit.cover
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  height: 50,
+                                  width: double.infinity,
+                                  color: Colors.black,
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(5),
+                                        child: Container(
+                                          height: 50,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.blueAccent,
+                                            image: DecorationImage(
+                                                image: AssetImage(VideoPlayerList[videoIndex]['logos'][index]),
+                                                fit: BoxFit.cover
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          VideoPlayerList[videoIndex]['companyName'][index],
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Icon(
+                                          Icons.more_vert,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
+            ),
           ],
         ),
       ),
@@ -212,4 +227,4 @@ class _Video_PlayerState extends State<Video_Player> {
   }
 }
 
-int videoIndex = 0;
+int videoIndex = 0; // Ensure this is properly set or managed
