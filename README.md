@@ -116,9 +116,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 ### Conclusion
 The `video_player` package in Flutter is a powerful tool for adding video playback capabilities to your applications. With its rich set of features and easy-to-use API, it can handle a wide range of video playback scenarios, making it a versatile choice for developers.
 
-<img src = "https://github.com/fenishpatel3150/videoplayer_app/assets/143187609/4e9dae09-8598-4395-9abb-21c4a0cc114b" width=22% height=35%>
-<img src = "https://github.com/fenishpatel3150/videoplayer_app/assets/143187609/fd6a46bd-abf6-4542-91cd-86dff89e4320" width=22% height=35%>
-<img src = "https://github.com/fenishpatel3150/videoplayer_app/assets/143187609/82047d42-5913-47c5-ac5c-d0e620405fa9" width=22% height=35%>
-<img src = "https://github.com/fenishpatel3150/videoplayer_app/assets/143187609/be4250e2-2379-4fb8-884c-7d8f32dad002" width=22% height=35%>
+<img src = "https://github.com/fenishpatel3150/videoplayer_app/assets/143187609/1fde8b34-8c12-48dc-96f8-13679247395c" width=22% height=35%>
+<img src = "https://github.com/fenishpatel3150/videoplayer_app/assets/143187609/ee4c5c62-bc0c-4691-9abe-87ec3f53a4b1" width=22% height=35%>
+<img src = "https://github.com/fenishpatel3150/videoplayer_app/assets/143187609/1906bb93-1843-4002-b66f-7cfe057c18dc" width=22% height=35%>
+<img src = "https://github.com/fenishpatel3150/videoplayer_app/assets/143187609/d8cf7166-a3e7-44ed-8c0b-8d67b98cbbea" width=22% height=35%>
+
+
+
 
 https://github.com/fenishpatel3150/videoplayer_app/assets/143187609/6133443f-7475-428e-b4f3-3b36a1532b57
